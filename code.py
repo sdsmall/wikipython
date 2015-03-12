@@ -86,16 +86,21 @@ class MainPage(webapp2.RequestHandler):
         queryString+="Comments: "
         queryString+=post.comments
         queryString+="<br>"
+        queryString+="<table>"
+        queryString+="<tr>"
+        queryString+="<td>"
         queryString+="Tags: "
+        queryString+="</td>"
+        queryString+="<td>"
         for tag in post.tags:
-          queryString+=" <a href="
-          queryString+= "\""
-          queryString+="#"
-          queryString+="\""
-          queryString+=">"
-          queryString+= "#"
+          queryString+="<form action=\"/searchresult\" method=\"post\" style=\"display:inline\">"
+          queryString+="<input type=\"submit\" class=\"linkButton\" name=\"search\" value=\"#"
           queryString+= tag
-          queryString+="</a>"
+          queryString+="\">"
+          queryString+="</form>"
+        queryString+="</td>"
+        queryString+="</tr>"
+        queryString+="</table>"
         queryString+="<br>"
         #queryString+=post.tags
         queryString+="<br>"
@@ -185,7 +190,10 @@ class Search(webapp2.RequestHandler):
 
 class SearchResult(webapp2.RequestHandler):
   def post(self):
-    render_template(self, 'searchresult.html', {})
+    searchterm = cgi.escape(self.request.get('search'))
+    render_template(self, 'searchresult.html', {
+        "term": searchterm
+      })
 
 app = webapp2.WSGIApplication([
   ('/', MainPage),

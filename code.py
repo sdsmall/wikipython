@@ -34,6 +34,13 @@ def tag_string_to_array(str):
     tag_array.append(curr)
   return tag_array
 
+def remove_hashtag(str):
+  new_string = ""
+  for c in str:
+    if c!='#':
+      new_string+=c
+  return new_string
+
 class MessagePost(ndb.Model):
   title = ndb.StringProperty()
   url = ndb.StringProperty()
@@ -83,10 +90,15 @@ class MainPage(webapp2.RequestHandler):
         queryString+=">"
         queryString+= post.title
         queryString+="</a><br>"
-        queryString+="Comments: "
-        queryString+=post.comments
-        queryString+="<br>"
         queryString+="<table>"
+        queryString+="<tr>"
+        queryString+="<td>"
+        queryString+="Comments: "
+        queryString+="</td>"
+        queryString+="<td>"
+        queryString+=post.comments
+        queryString+="</td>"
+        queryString+="</tr>"       
         queryString+="<tr>"
         queryString+="<td>"
         queryString+="Tags: "
@@ -190,9 +202,52 @@ class Search(webapp2.RequestHandler):
 
 class SearchResult(webapp2.RequestHandler):
   def post(self):
-    searchterm = cgi.escape(self.request.get('search'))
+    term = cgi.escape(self.request.get('search'))
+    search_term = remove_hashtag(term)
+    query = MessagePost.query(MessagePost.tags==search_term)
+    queryString = ""
+    for post in query.iter():
+      #queryString+="<br><br>"
+      #queryString+="found: "
+      #queryString+=post.title
+      queryString+="<p>"
+      queryString+="<a href="
+      queryString+= post.url
+      queryString+=" target=\"_blank\""
+      queryString+=">"
+      queryString+= post.title
+      queryString+="</a><br>"
+      queryString+="<table>"
+      queryString+="<tr>"
+      queryString+="<td>"
+      queryString+="Comments: "
+      queryString+="</td>"
+      queryString+="<td>"
+      queryString+=post.comments
+      queryString+="</td>"
+      queryString+="</tr>"       
+      queryString+="<tr>"
+      queryString+="<td>"
+      queryString+="Tags: "
+      queryString+="</td>"
+      queryString+="<td>"
+      for tag in post.tags:
+        queryString+="<form action=\"/searchresult\" method=\"post\" style=\"display:inline\">"
+        queryString+="<input type=\"submit\" class=\"linkButton\" name=\"search\" value=\"#"
+        queryString+= tag
+        queryString+="\">"
+        queryString+="</form>"
+      queryString+="</td>"
+      queryString+="</tr>"
+      queryString+="</table>"
+      queryString+="<br>"
+      #queryString+=post.tags
+      queryString+="<br>"
+      queryString+="</p>"
+
     render_template(self, 'searchresult.html', {
-        "term": searchterm
+        "term": search_term,
+        "queryString": queryString
       })
 
 app = webapp2.WSGIApplication([

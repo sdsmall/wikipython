@@ -2,4 +2,11 @@
 
 {% block content %}
     Search results for "{{term}}"
+    <br>
+    <br>
+    <p>
+    {% autoescape off %}
+      {{queryString}}
+    {% endautoescape %}
+    </p>
 {% endblock %}

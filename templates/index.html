@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>User: {{username}}</h2>
+    <p>
+    {% autoescape off %}
+      {{queryString}}
+    {% endautoescape %}
+    </p>
+{% endblock %}

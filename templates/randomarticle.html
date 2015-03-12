@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  	<div class = "share">
+  		<center>
+  		<form action="/share" method="post">
+            <input type="submit" value="Share this article on my page" class="sharebutton">
+            <textarea name="shareurl" style="display:none;">{{url}}</textarea>
+            <textarea name="sharetitle" style="display:none;">{{title}}</textarea>
+        </form>
+        <center>
+  	</div>
+
+	
+  {% autoescape off %}
+
+  	<div class = "wikicontent">
+  		<h2><center>{{title}}</center></h2>
+		<br><br>
+  		{{content}}
+  	</div>
+
+    
+  {% endautoescape %}
+{% endblock %}

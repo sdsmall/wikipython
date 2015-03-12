@@ -1,0 +1,54 @@
+
+body {
+    background-image: url(sky.JPG);
+    background-size: cover;   
+}
+
+#heading {
+    margin:1%;
+    font-family:Roboto Regular;
+    background:rgba(255,255,255,0.5);
+}
+
+#contentside {
+    height:80%;
+    width:100%;
+    position:absolute;
+}
+
+#sidebar {
+    height:90%;
+    width:12%;
+    margin-left:1%;
+    float:left;
+    text-align:center;
+    font-family:Roboto Regular;
+    position:relative;
+    background:rgba(255,255,255,0.5);
+}
+
+#content {
+    width:80%;
+    height:97%;
+    margin-left:18%;
+    padding:0.5%;
+    position:relative;
+    overflow-y:scroll;
+    background-color:red;
+    background:rgba(255,255,255,0.7);
+    border-radius:7px;
+}
+
+.sharebutton
+{
+    font-size:17px;
+    font-family:Roboto Regular; 
+}
+
+.menubutton
+{
+    background-color:transparent;
+    font-size:17px;
+    border:none;   
+    font-family:Roboto Regular; 
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/static/bootstrap.min.js"></script>
+    <link href="/static/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" rel="stylesheet" href="/static/theme.css" />
+    <link type="text/css" rel="stylesheet" href="/static/base.css" />
+    <title>LearnSomething</title>
+</head>
+
+<body>
+    
+    <div id="heading" class="well well-large">
+        <table width="100%">
+            <tr>
+                <td>
+                    <font size="54pt">
+                        LearnSomething 
+                    </font>
+                </td>
+                <td>
+                    <font size="74pt"align="center">
+                        Learn something today.
+                    </font>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+<div id="contentside">
+    <div id="sidebar" class="well well-large">
+        <form action="/random" method="post">
+            <input type="submit" value="Random" class="menubutton" color="#ffffff">
+        </form>
+        <form action="/" method="get">
+            <input type="submit" value="My Pages" class="menubutton">
+        </form>
+        <form action="/" method="get">
+            <input type="submit" value="My Friends" class="menubutton">
+        </form>
+        <form action="/" method="get">
+            <input type="submit" value="Trending" class="menubutton">
+        </form>
+        <form action="/" method="get">
+            <input type="submit" value="Notifications" class="menubutton">
+        </form>
+        <form action="/search" method="get">
+            <input type="submit" value="Search" class="menubutton">
+        </form>
+        <form action="/login" method="get">
+            <input type="submit" value="Log In" class="menubutton">
+        </form>
+        <form action="/logout" method="get">
+            <input type="submit" value="Log Out" class="menubutton">
+        </form>
+
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+</body>
+</html>
